@@ -3,9 +3,12 @@ services:
   php:
     build:
       context: .
-      dockerfile: docker/php/Dockerfile
+      dockerfile: ./docker/php/Dockerfile
     volumes:
       - .:/var/www/html
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    environment:
+     - PHP_IDE_CONFIG=serverName=docker_xdebug
 
   nginx:
     image: nginx

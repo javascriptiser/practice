@@ -1,14 +1,17 @@
 # Базовый образ PHP 7.4-FPM
 FROM php:7.4-fpm
 
-RUN docker-php-ext-install pdo_mysql
-
 # Установка необходимых зависимостей
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
     libzip-dev \
     && docker-php-ext-install zip
+
+RUN docker-php-ext-install pdo_mysql
+
+RUN pecl install xdebug-2.9.8 \
+    && docker-php-ext-enable xdebug
 
 # Установка Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
