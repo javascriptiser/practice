@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Practice\Practice\Database;
+namespace Practice\Database;
 
 use PDO;
 use PDOException;
