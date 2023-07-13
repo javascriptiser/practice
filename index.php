@@ -1,25 +1,29 @@
 <?php
 declare(strict_types=1);
 
-use Practice\Builder\PizzaBuilder;
-use Practice\Core\FreePizza;
-use Practice\Factory\PizzaFactory;
+
+use Framework\AbstractFactory\Factory;
+use Framework\App;
+use Framework\Router\Route;
+use Framework\Router\RouteCollection;
+use Framework\Router\UrlMatcher;
+use Practice\Controllers\FailController;
+use Practice\Controllers\HomeController;
+use Practice\Controllers\TestController;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$factory = new PizzaFactory();
-$builder = new PizzaBuilder(new FreePizza());
+$home_route = new Route("/", HomeController::class);
+$test_route = new Route("/test", TestController::class);
+$fail_route = new Route("/fail", FailController::class);
 
-$pizza = $builder->setName("Name_1")
-    ->setCrust($factory->createCrust("Crust_1"))
-    ->setSauce($factory->createSauce("Sauce_1"))
-    ->setBaseCheese($factory->createBaseCheese("BaseCheese_1"))
-    ->addIngredient($factory->createIngredient("Ingredient_1"))
-    ->addIngredient($factory->createIngredient("Ingredient_2"))
-    ->addIngredient($factory->createIngredient("Ingredient_3"))
-    ->getResult();
+$routes = new RouteCollection();
+$routes->addRoute("home", $home_route)
+    ->addRoute("test", $test_route)
+    ->addRoute("fail", $fail_route);
 
-
-
-echo json_encode($pizza);
-$fact = 5;
+$app = new App(
+    new UrlMatcher($routes),
+    new Factory()
+);
+$app->bootstrap();

@@ -1,7 +1,8 @@
 {
   "autoload": {
     "psr-4": {
-      "Practice\\": "src/"
+      "Practice\\": "src/",
+      "Framework\\": "framework/"
     }
   },
   "require": {
