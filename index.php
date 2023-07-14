@@ -13,6 +13,7 @@ use Practice\Controllers\TestController;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+
 $home_route = new Route("/", HomeController::class);
 $test_route = new Route("/test", TestController::class);
 $fail_route = new Route("/fail", FailController::class);
